@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+
+}
+
+group 'ru.atqa'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.12
+targetCompatibility = 1.12
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.13.1'
+    testCompile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+
+}
+
