@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
     public WebDriver driver;
 
+    private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
 
@@ -18,14 +19,11 @@ public class ApplicationManager {
         driver.get("http://localhost/addressbook/group.php");
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
-        login("admin", "secret");
+        sessionHelper = new SessionHelper(driver);
+        sessionHelper.login("admin", "secret");
     }
 
-    public void login(String user, String password) {
-        driver.findElement(By.name("user")).sendKeys(user);
-        driver.findElement(By.name("pass")).sendKeys(password);
-        driver.findElement(By.xpath("//*[@id=\"LoginForm\"]/input[3]")).click();
-    }
+
 
     public void stop() {
         driver.quit();
