@@ -1,39 +1,37 @@
-package ru.atqa.addressbook;
+package ru.atqa.addressbook.appmanager;
 
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import ru.atqa.addressbook.model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
-    protected WebDriver driver;
+public class ApplicationManager {
+    public WebDriver driver;
 
-    @Before
-    public void start() throws Exception {
+    public void init() {
         driver = new OperaDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.get("http://localhost/addressbook/group.php");
         login("admin", "secret");
     }
 
-    private void login(String user, String password) {
+    public void login(String user, String password) {
         driver.findElement(By.name("user")).sendKeys(user);
         driver.findElement(By.name("pass")).sendKeys(password);
         driver.findElement(By.xpath("//*[@id=\"LoginForm\"]/input[3]")).click();
     }
 
-    protected void returnToGroupPage() {
+    public void returnToGroupPage() {
         driver.findElement(By.linkText("group page")).click();
     }
 
-    protected void submitGroupCreation() {
+    public void submitGroupCreation() {
         driver.findElement(By.name("submit")).click();
     }
 
-    protected void fillGroupForm(GroupData groupData) {
+    public void fillGroupForm(GroupData groupData) {
         driver.findElement(By.name("group_name")).click();
         driver.findElement(By.name("group_name")).clear();
         driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
@@ -45,25 +43,24 @@ public class TestBase {
         driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
-    protected void initGroupCreation() {
+    public void initGroupCreation() {
         driver.findElement(By.name("new")).click();
     }
 
-    protected void gotoGroupPage() {
+    public void gotoGroupPage() {
         driver.findElement(By.xpath("//*[@id=\"nav\"]/ul/li[3]/a")).click();
     }
 
-    @After
     public void stop() {
         driver.quit();
         driver = null;
     }
 
-    protected void deleteSelectedGroups() {
+    public void deleteSelectedGroups() {
         driver.findElement(By.xpath("(//input[@name='delete'])[2]")).click();
     }
 
-    protected void selectGroup() {
+    public void selectGroup() {
         driver.findElement(By.name("selected[]")).click();
     }
 }

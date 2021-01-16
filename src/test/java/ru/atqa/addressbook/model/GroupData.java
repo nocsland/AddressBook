@@ -1,4 +1,4 @@
-package ru.atqa.addressbook;
+package ru.atqa.addressbook.model;
 
 public class GroupData {
     private final String name;
